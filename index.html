@@ -278,6 +278,110 @@ body {
 .reset-button:hover {
     background: #15843c;
 }
+/* Add these media queries at the end of your existing CSS */
+@media screen and (max-width: 768px) {
+    .central-time-display {
+        left: 10px;
+        top: 10px;
+        min-width: auto;
+        width: calc(100% - 20px);
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .time-slider-container {
+        bottom: 220px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 20px);
+        max-width: 300px;
+        padding: 8px 12px;
+    }
+
+    .adjustment-buttons {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .adjustment-button {
+        padding: 4px 8px;
+        font-size: 12px;
+        min-width: 30px;
+    }
+
+    .info-box {
+        width: calc(100% - 20px);
+        left: 10px;
+        padding: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .countries-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 4px;
+        max-height: 150px;
+    }
+
+    .country-tag {
+        padding: 3px 6px;
+        font-size: 11px;
+    }
+
+    .time-row {
+        font-size: 18px;
+    }
+
+    .time-label {
+        font-size: 12px;
+        width: 50px;
+    }
+
+    .time-detail {
+        font-size: 10px;
+    }
+
+    .bar-label {
+        font-size: 12px;
+        padding: 3px;
+    }
+
+    .time-offset-display {
+        font-size: 12px;
+    }
+
+    .reset-button {
+        padding: 3px 10px;
+        font-size: 11px;
+    }
+
+    .longitude {
+        font-size: 16px;
+    }
+
+    .countries-title {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .time-slider-container {
+        bottom: 200px;
+    }
+
+    .countries-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .time-row {
+        font-size: 16px;
+    }
+
+    .adjustment-button {
+        padding: 3px 6px;
+        font-size: 11px;
+    }
+}
 </style>
 </head>
 <body>
