@@ -61,37 +61,92 @@ body {
     align-items: center;
 }
 
+::-webkit-scrollbar {
+    display: none;  /* Hide scrollbars */
+}
 
+* {
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
 
-.central-time-display {
+.resizable {
     position: absolute;
-    top: 10px;
-    left: 50px;
-    z-index: 1000;
+    min-width: 200px;
+    min-height: 100px;
+}
+
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #1db954;
+    border-radius: 50%;
+    z-index: 1001;
+}
+
+.resize-handle.bottom-right {
+    bottom: -5px;
+    right: -5px;
+    cursor: se-resize;
+}
+
+.resize-handle.bottom-left {
+    bottom: -5px;
+    left: -5px;
+    cursor: sw-resize;
+}
+
+.resize-handle.top-right {
+    top: -5px;
+    right: -5px;
+    cursor: ne-resize;
+}
+
+.resize-handle.top-left {
+    top: -5px;
+    left: -5px;
+    cursor: nw-resize;
+}
+
+/* Make all windows have consistent styling */
+
+.info-box {
     background: rgba(34, 34, 34, 0.95);
-    padding: 15px 25px;
+    border: 2px solid #1db954;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    border: 2px solid #1db954;
-    text-align: center;
-    min-width: 280px;
+    position: absolute;
+    z-index: 1000;
+    touch-action: none;
+    width: 600px;
+    color: #e0e0e0;
+    padding: 12px;
 }
 
 .time-slider-container {
-    position: absolute;
-    bottom: 350px;
-    left: 10px;
-    transform: none;
-    z-index: 1000;
     background: rgba(34, 34, 34, 0.95);
-    padding: 10px 20px;
+    border: 2px solid #1db954;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    border: 2px solid #1db954;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: absolute;
+    z-index: 1000;
+    touch-action: none;
     width: 300px;
+    padding: 10px 20px;
+}
+
+.central-time-display {
+    background: rgba(34, 34, 34, 0.95);
+    border: 2px solid #1db954;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    position: absolute;
+    z-index: 1000;
+    touch-action: none;
+    padding: 15px 25px;
+    min-width: 280px;
+    text-align: center;
 }
 
 .adjustment-buttons {
@@ -130,21 +185,6 @@ body {
     margin-top: 4px;
 }
 
-.info-box {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    transform: none;
-    z-index: 1000;
-    background: rgba(34, 34, 34, 0.95);
-    padding: 12px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    width: 600px;
-    max-width: none;
-    color: #e0e0e0;
-    border: 2px solid #1db954;
-}
 
 .time-row {
     display: flex;
@@ -381,6 +421,202 @@ body {
         padding: 3px 6px;
         font-size: 11px;
     }
+}
+.draggable {
+    cursor: move;
+}
+
+.drag-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    cursor: move;
+    opacity: 0;
+}
+
+.draggable-header {
+    padding: 8px;
+    background: rgba(29, 185, 84, 0.2);
+    border-bottom: 1px solid #1db954;
+    margin: -12px -12px 8px -12px;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #1db954;
+    border-radius: 50%;
+}
+
+.resize-handle.bottom-right {
+    bottom: -5px;
+    right: -5px;
+    cursor: se-resize;
+}
+
+.resize-handle.bottom-left {
+    bottom: -5px;
+    left: -5px;
+    cursor: sw-resize;
+}
+
+.resize-handle.top-right {
+    top: -5px;
+    right: -5px;
+    cursor: ne-resize;
+}
+
+.resize-handle.top-left {
+    top: -5px;
+    left: -5px;
+    cursor: nw-resize;
+}
+
+.minimize-button {
+    background: none;
+    border: none;
+    color: #1db954;
+    cursor: pointer;
+    padding: 0 4px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.minimized {
+    height: auto !important;
+    width: auto !important;
+}
+
+.minimized .draggable-content {
+    display: none;
+}
+
+/* Modify existing window styles to accommodate new features */
+.info-box {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: rgba(34, 34, 34, 0.95);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    width: 600px;
+    color: #e0e0e0;
+    border: 2px solid #1db954;
+    touch-action: none; /* Prevent touch scrolling while dragging */
+}
+
+.time-slider-container {
+    position: absolute;
+    bottom: 350px;
+    left: 10px;
+    z-index: 1000;
+    background: rgba(34, 34, 34, 0.95);
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    border: 2px solid #1db954;
+    width: 300px;
+    touch-action: none;
+}
+
+.central-time-display {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    z-index: 1000;
+    background: rgba(34, 34, 34, 0.95);
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    border: 2px solid #1db954;
+    text-align: center;
+    min-width: 280px;
+    touch-action: none;
+}
+
+.draggable-content {
+    overflow: auto;
+    height: calc(100% - 35px);
+}
+.draggable-header {
+    padding: 8px;
+    background: rgba(29, 185, 84, 0.2);
+    border-bottom: 1px solid #1db954;
+    margin: -12px -12px 8px -12px;
+    border-radius: 6px 6px 0 0;
+    cursor: grab;
+    height: 20px;
+}
+
+.draggable-header:active {
+    cursor: grabbing;
+}
+
+.resize-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #1db954;
+    border-radius: 50%;
+    z-index: 1000;
+}
+
+.resize-handle.top-left {
+    top: -6px;
+    left: -6px;
+    cursor: nw-resize;
+}
+
+.resize-handle.top-right {
+    top: -6px;
+    right: -6px;
+    cursor: ne-resize;
+}
+
+.resize-handle.bottom-left {
+    bottom: -6px;
+    left: -6px;
+    cursor: sw-resize;
+}
+
+.resize-handle.bottom-right {
+    bottom: -6px;
+    right: -6px;
+    cursor: se-resize;
+}
+
+/* Ensure windows have proper positioning */
+.info-box,
+.time-slider-container,
+.central-time-display {
+    position: absolute !important;
+    min-width: 200px;
+    min-height: 100px;
+    z-index: 1000;
+}
+
+/* Add padding to compensate for resize handles */
+.info-box,
+.time-slider-container,
+.central-time-display {
+    padding: 12px;
+    margin: 6px;
+}
+
+/* Ensure content doesn't overlap with drag handle */
+.draggable-content {
+    margin-top: 8px;
+    height: calc(100% - 36px);
+    overflow: auto;
 }
 </style>
 </head>
@@ -765,6 +1001,97 @@ function adjustTime(minutes) {
     updateSolar420Location();
 }
 
+function makeDraggable(element) {
+    // Only add header and handles if they don't exist
+    if (!element.querySelector('.draggable-header')) {
+        const header = document.createElement('div');
+        header.className = 'draggable-header';
+        header.innerHTML = '<div class="drag-handle"></div>';
+        element.insertBefore(header, element.firstChild);
+    }
+
+    // Only add resize handles if they don't exist
+    const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+    positions.forEach(position => {
+        if (!element.querySelector(`.resize-handle.${position}`)) {
+            const handle = document.createElement('div');
+            handle.className = `resize-handle ${position}`;
+            element.appendChild(handle);
+        }
+    });
+
+    // Rest of the draggable functionality remains the same
+    let isDragging = false;
+    let startX, startY, startLeft, startTop;
+
+    function dragStart(e) {
+        if (e.target.closest('.draggable-header')) {
+            isDragging = true;
+            const rect = element.getBoundingClientRect();
+            startLeft = rect.left;
+            startTop = rect.top;
+            
+            if (e.type === "touchstart") {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else {
+                startX = e.clientX;
+                startY = e.clientY;
+            }
+            
+            e.preventDefault();
+            element.style.cursor = 'grabbing';
+        }
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        e.preventDefault();
+        
+        let currentX, currentY;
+        if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX;
+            currentY = e.touches[0].clientY;
+        } else {
+            currentX = e.clientX;
+            currentY = e.clientY;
+        }
+        
+        const dx = currentX - startX;
+        const dy = currentY - startY;
+        
+        let newLeft = startLeft + dx;
+        let newTop = startTop + dy;
+        
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const rect = element.getBoundingClientRect();
+        
+        // Keep window within viewport
+        newLeft = Math.max(0, Math.min(newLeft, windowWidth - rect.width));
+        newTop = Math.max(0, Math.min(newTop, windowHeight - rect.height));
+        
+        element.style.left = `${newLeft}px`;
+        element.style.top = `${newTop}px`;
+        element.style.bottom = 'auto';
+    }
+
+    function dragEnd() {
+        if (isDragging) {
+            isDragging = false;
+            element.style.cursor = 'default';
+        }
+    }
+
+    element.addEventListener('mousedown', dragStart);
+    element.addEventListener('touchstart', dragStart, { passive: false });
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchend', dragEnd);
+}
+
 function calculateTimeUntil420(timezone) {
     try {
         const now = new Date();
@@ -810,7 +1137,99 @@ function calculateTimeUntil420(timezone) {
         return null;
     }
 }
+function makeResizable(element) {
+    // Create resize handles with absolute positioning
+    const handles = ['top-left', 'top-right', 'bottom-left', 'bottom-right'].map(position => {
+        const handle = document.createElement('div');
+        handle.className = `resize-handle ${position}`;
+        element.appendChild(handle);
+        return handle;
+    });
 
+    let isResizing = false;
+    let currentHandle = null;
+    let startX, startY, startWidth, startHeight, startLeft, startTop;
+
+    function resizeStart(e, handle) {
+        if (e.target.classList.contains('resize-handle')) {
+            isResizing = true;
+            currentHandle = handle;
+            
+            const rect = element.getBoundingClientRect();
+            startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            startWidth = rect.width;
+            startHeight = rect.height;
+            startLeft = rect.left;
+            startTop = rect.top;
+            
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+
+    function resize(e) {
+        if (!isResizing) return;
+        
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+        
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+        
+        const position = currentHandle.className.split(' ')[1];
+        let newWidth = startWidth;
+        let newHeight = startHeight;
+        let newLeft = startLeft;
+        let newTop = startTop;
+        
+        switch(position) {
+            case 'bottom-right':
+                newWidth = Math.max(200, startWidth + dx);
+                newHeight = Math.max(100, startHeight + dy);
+                break;
+            case 'bottom-left':
+                newWidth = Math.max(200, startWidth - dx);
+                newHeight = Math.max(100, startHeight + dy);
+                newLeft = startLeft + startWidth - newWidth;
+                break;
+            case 'top-right':
+                newWidth = Math.max(200, startWidth + dx);
+                newHeight = Math.max(100, startHeight - dy);
+                newTop = startTop + startHeight - newHeight;
+                break;
+            case 'top-left':
+                newWidth = Math.max(200, startWidth - dx);
+                newHeight = Math.max(100, startHeight - dy);
+                newLeft = startLeft + startWidth - newWidth;
+                newTop = startTop + startHeight - newHeight;
+                break;
+        }
+        
+        element.style.width = `${newWidth}px`;
+        element.style.height = `${newHeight}px`;
+        element.style.left = `${newLeft}px`;
+        element.style.top = `${newTop}px`;
+        
+        e.preventDefault();
+    }
+
+    function resizeEnd() {
+        isResizing = false;
+        currentHandle = null;
+    }
+
+    // Add event listeners for both mouse and touch events
+    handles.forEach(handle => {
+        handle.addEventListener('mousedown', (e) => resizeStart(e, handle));
+        handle.addEventListener('touchstart', (e) => resizeStart(e, handle), { passive: false });
+    });
+
+    document.addEventListener('mousemove', resize);
+    document.addEventListener('touchmove', resize, { passive: false });
+    document.addEventListener('mouseup', resizeEnd);
+    document.addEventListener('touchend', resizeEnd);
+}
 function isLongitudeInRange(longitude, start, end, tolerance = 0.125) {
     // Normalize longitude to -180 to 180 range
     while (longitude > 180) longitude -= 360;
@@ -890,7 +1309,15 @@ function updateInfoBox(longitudeDiff, countriesInWindow) {
             return a[1].totalSeconds - b[1].totalSeconds;
         });
 
-        infoBox.innerHTML = `
+        // Create or get the content container
+        let contentContainer = infoBox.querySelector('.draggable-content');
+        if (!contentContainer) {
+            contentContainer = document.createElement('div');
+            contentContainer.className = 'draggable-content';
+            infoBox.appendChild(contentContainer);
+        }
+
+        contentContainer.innerHTML = `
             <div class="longitude">Solar 4:20 @ ${longitudeDiff.toFixed(1)}° (UTC${longitudeDiff >= 0 ? '+' : ''}${(longitudeDiff/15).toFixed(1)})</div>
             <div class="countries-container">
                 <div class="countries-list">
@@ -1041,7 +1468,76 @@ function updateSolar420Location() {
     updateInfoBox(currentLongitude, countriesInWindow);
         
 }
+function updateCentralTimeDisplay(offsetTime) {
+    const centralTimeDisplay = document.querySelector('.central-time-display');
+    if (!centralTimeDisplay) return;
 
+    // Create or get the content container
+    let contentContainer = centralTimeDisplay.querySelector('.draggable-content');
+    if (!contentContainer) {
+        contentContainer = document.createElement('div');
+        contentContainer.className = 'draggable-content';
+        centralTimeDisplay.appendChild(contentContainer);
+    }
+
+    const now = new Date();
+    const utcHours = offsetTime.getUTCHours();
+    const utcMinutes = offsetTime.getUTCMinutes();
+    const utcSeconds = offsetTime.getUTCSeconds();
+
+    contentContainer.innerHTML = `
+        <div class="time-row">
+            <span class="time-label">UTC</span>
+            <span class="time-value">${utcHours.toString().padStart(2, '0')}:${
+                utcMinutes.toString().padStart(2, '0')}:${
+                utcSeconds.toString().padStart(2, '0')}</span>
+        </div>
+        <div class="time-row">
+            <span class="time-label">LOCAL</span>
+            <span class="time-value">${formatTime(offsetTime)}</span>
+        </div>
+        ${timeOffset !== 0 ? '<div class="time-offset">Offset: ' + formatTimeOffset(timeOffset) + '</div>' : ''}
+    `;
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const infoBox = document.getElementById('infoBox');
+    const timeSliderContainer = document.querySelector('.time-slider-container');
+    const centralTimeDisplay = document.querySelector('.central-time-display');
+
+    // Make all windows draggable and resizable
+    [infoBox, timeSliderContainer, centralTimeDisplay].forEach(element => {
+        if (element) {
+            makeDraggable(element);
+            makeResizable(element);
+        }
+    });
+
+    // Set initial positions if not already set
+    if (timeSliderContainer) {
+        Object.assign(timeSliderContainer.style, {
+            position: 'absolute',
+            top: '350px',
+            left: '10px',
+            bottom: 'auto'
+        });
+    }
+
+    if (centralTimeDisplay) {
+        Object.assign(centralTimeDisplay.style, {
+            position: 'absolute',
+            top: '10px',
+            left: '50px'
+        });
+    }
+
+    if (infoBox) {
+        Object.assign(infoBox.style, {
+            position: 'absolute',
+            bottom: '10px',
+            left: '10px'
+        });
+    }
+});
 const followButton = L.control({position: 'topleft'});
 followButton.onAdd = function(map) {
     const div = L.DomUtil.create('div', 'leaflet-control leaflet-bar');
